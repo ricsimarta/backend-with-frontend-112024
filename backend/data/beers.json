@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0,
+    "name": "Dreher Gold",
+    "price": 449,
+    "rating": 7
+  },
+  {
+    "id": 1,
+    "name": "Dreher Bak",
+    "price": 499,
+    "rating": 4
+  },
+  {
+    "id": 2,
+    "name": "Soproni világos",
+    "price": 399,
+    "rating": 4.5
+  },
+  {
+    "id": 3,
+    "name": "Kpbányai világos",
+    "price": 379,
+    "rating": 3.5
+  },
+  {
+    "id": 4,
+    "name": "Krusovice svetle",
+    "price": 489,
+    "rating": 6.5
+  },
+  {
+    "id": 5,
+    "name": "Peroni azurro",
+    "price": 349,
+    "rating": 7.5
+  },
+  {
+    "id": 6,
+    "name": "Birra moretti",
+    "price": 369,
+    "rating": 6.5
+  },
+  {
+    "id": 7,
+    "name": "Tuborg green",
+    "price": 289,
+    "rating": 5
+  },
+  {
+    "id": 8,
+    "name": "Delirium tremens",
+    "price": 1199,
+    "rating": 8
+  },
+  {
+    "id": 9,
+    "name": "Szentandári Ogre",
+    "price": 799,
+    "rating": 7
+  }
+]
