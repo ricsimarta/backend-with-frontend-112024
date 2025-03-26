@@ -1,7 +1,26 @@
 * {
+  margin: 0;
+  padding: 0;
+
   box-sizing: border-box;
 }
 
-h1 {
-  color: red;
+body {
+  padding: 20px;
+}
+
+.beers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.beer {
+  width: 100%;
+  max-width: 360px;
+
+  padding: 20px;
+
+  border: 2px dashed rgba(0, 0, 0, 0.4);
 }

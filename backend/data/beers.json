@@ -58,5 +58,23 @@
     "name": "Szentandári Ogre",
     "price": 799,
     "rating": 7
+  },
+  {
+    "id": 10,
+    "name": "Gösser",
+    "price": 469,
+    "rating": 5
+  },
+  {
+    "id": 11,
+    "name": "Pécsi sör",
+    "price": 469,
+    "rating": 4
+  },
+  {
+    "id": 12,
+    "name": "Balatoni világos",
+    "price": 469,
+    "rating": 2
   }
 ]
