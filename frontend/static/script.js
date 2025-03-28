@@ -11,26 +11,6 @@ const beerComponent = (beer) => `
   </div>
 `;
 
-const findBeer = (id) => {
-  const beer = beersData.find(beerData => beerData.id === Number(id));
-  return beer;
-}
-
-const createAddBeerToCartEvents = () => {
-  document.querySelectorAll("button.add").forEach(button => button.addEventListener("click", (event) => {
-    const beerId = event.target.id.substring(4);
-    const beer = findBeer(beerId);
-  }))
-}
-
-const createDeleteBeerEvents = () => {
-  document.querySelectorAll("button.delete").forEach(button => button.addEventListener("click", () => {
-    const beerId = button.id.substring(7);
-    beersData = beersData.filter(beerData => beerData.id !== Number(beerId));
-    createDom();
-  }))
-}
-
 const beersComponent = (beers) => `
   <div class="beers">
     ${beers.map(beer => beerComponent(beer)).join("")}
@@ -46,7 +26,36 @@ const newBeerComponent = () => `
   </form>
 `;
 
-const createFormEvent = () => {
+const findBeer = (id) => {
+  const beer = beersData.find(beerData => beerData.id === id);
+  return beer;
+}
+
+const createAddBeerToCartEvents = () => {
+  document.querySelectorAll("button.add").forEach(button => button.addEventListener("click", (event) => {
+    const beerId = event.target.id.substring(4);
+    const beer = findBeer(beerId);
+  }))
+}
+
+const createDeleteBeerEvents = () => {
+  document.querySelectorAll("button.delete").forEach(button => button.addEventListener("click", () => {
+    const beerId = button.id.substring(7);
+
+    fetch(`/api/data/delete/${beerId}`, {
+      method: 'DELETE',
+    })
+      .then(res => res.json())
+      .then(data => {
+        /* TO DO: OTHER MEGKÖZELÍTÉS */
+        console.log(data);
+        beersData = beersData.filter(beerData => beerData.id !== beerId);
+        createDom();
+      });
+  }))
+}
+
+const createAddNewBeerEvent = () => {
   document.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -75,20 +84,30 @@ const createFormEvent = () => {
   })
 }
 
-const createDom = () => {
-  rootElement.innerHTML = "";
-
+const createElements = () => {
   rootElement.insertAdjacentHTML("beforeend", beersComponent(beersData));
-  createAddBeerToCartEvents();
-  createDeleteBeerEvents();
-
   rootElement.insertAdjacentHTML("beforeend", newBeerComponent());
-  createFormEvent();
 }
 
-fetch('/api/data')
-  .then(res => res.json())
-  .then(data => {
-    beersData = data;
-    createDom();
-  });
+const createEvents = () => {
+  createAddBeerToCartEvents();
+  createDeleteBeerEvents();
+  createAddNewBeerEvent();
+}
+
+const createDom = () => {
+  rootElement.innerHTML = "";
+  createElements();
+  createEvents();
+}
+
+const init = () => {
+  fetch('/api/data')
+    .then(res => res.json())
+    .then(data => {
+      beersData = data;
+      createDom();
+    });
+}
+
+init();

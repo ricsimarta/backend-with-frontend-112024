@@ -1,4 +1,5 @@
 const express = require('express');
+const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
 const app = express();
@@ -25,7 +26,7 @@ app.post('/api/data/new', (req, res) => {
     }
 
     const data = JSON.parse(dataString);
-    const newBeer = { ...req.body, id: data[data.length - 1].id + 1 }
+    const newBeer = { ...req.body, id: uuidv4() }
     data.push(newBeer);
 
     fs.writeFile(`${__dirname}/data/beers.json`, JSON.stringify(data, null, 2), (err) => {
@@ -35,6 +36,35 @@ app.post('/api/data/new', (req, res) => {
       }
 
       return res.json(newBeer);
+    })
+  })
+})
+
+app.delete('/api/data/delete/:id', (req, res) => {
+  const beerId = req.params.id;
+
+  fs.readFile(`${__dirname}/data/beers.json`, 'utf8', (err, dataString) => {
+    if (err) {
+      console.log('error at reading file');
+      return res.status(500).json('error at reading file');
+    }
+
+    const data = JSON.parse(dataString);
+    const beerToDelete = data.find(beerData => beerData.id === beerId);
+
+    if (!beerToDelete) {
+      return res.status(410).json(`could not find beer with id: ${beerId}`);
+    }
+
+    const beers = data.filter(beerData => beerData.id !== beerId);
+    
+    fs.writeFile(`${__dirname}/data/beers.json`, JSON.stringify(beers, null, 2), (err) => {
+      if (err) {
+        console.log('error at writing file');
+        return res.status(500).json('error at writing file');
+      }
+
+      return res.json(`deleted beer with id: ${beerId}`);
     })
   })
 })
