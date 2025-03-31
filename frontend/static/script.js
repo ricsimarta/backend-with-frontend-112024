@@ -60,7 +60,7 @@ const createEditBeerEvents = () => {
 
       const submitButtonElement = document.querySelector('button.submit');
       submitButtonElement.innerHTML = "update beer";
-      
+
       const formElement = document.querySelector('form');
       formElement.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -89,10 +89,14 @@ const createEditBeerEvents = () => {
           },
           body: JSON.stringify(updatedBeerData)
         })
-          .then(res => res.json())
-          .then(() => {
-            init();
+          .then(async res => {
+            if (Math.floor(res.status / 100) !== 2) {
+              const message = await res.json();
+              throw new Error(message);
+            }
+            return res.json();
           })
+          .then(() => init())
           .catch(err => console.log(err))
       })
     }
