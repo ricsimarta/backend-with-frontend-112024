@@ -73,7 +73,7 @@ app.patch('/api/data/patch', (req, res) => {
   if (!req.body.id) return res.status(400).json(`id must be sent!`);
   const updatedBeer = req.body;
 
-  fs.readFile(`${__dirname}/data/beeers.json`, 'utf8', (err, dataString) => {
+  fs.readFile(`${__dirname}/data/beers.json`, 'utf8', (err, dataString) => {
     if (err) {
       console.log('error at reading file');
       return res.status(500).json('error at reading file');
