@@ -1,8 +1,26 @@
 [
   {
+    "id": "aad0a68e-95ca-4df3-96b6-32b9ee545c5f",
     "name": "Dreher gold",
-    "price": 449,
-    "rating": 5,
-    "id": "aad0a68e-95ca-4df3-96b6-32b9ee545c5f"
+    "price": 499,
+    "rating": 10
+  },
+  {
+    "id": "8207ce11-9432-40a6-936f-baa169c55a42",
+    "name": "Kőbányai világos",
+    "price": 999,
+    "rating": 3
+  },
+  {
+    "id": "a8416417-926a-4ae2-b2a1-f0ad666caeb7",
+    "name": "Tuborg green",
+    "price": 999,
+    "rating": 30
+  },
+  {
+    "name": "Kőbányai világos",
+    "price": 399,
+    "rating": 3,
+    "id": "cb2f4714-e900-439a-8215-8db6c2c1ce64"
   }
 ]

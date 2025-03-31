@@ -57,7 +57,7 @@ app.delete('/api/data/delete/:id', (req, res) => {
     }
 
     const beers = data.filter(beerData => beerData.id !== beerId);
-    
+
     fs.writeFile(`${__dirname}/data/beers.json`, JSON.stringify(beers, null, 2), (err) => {
       if (err) {
         console.log('error at writing file');
@@ -65,6 +65,39 @@ app.delete('/api/data/delete/:id', (req, res) => {
       }
 
       return res.json(`deleted beer with id: ${beerId}`);
+    })
+  })
+})
+
+app.patch('/api/data/patch', (req, res) => {
+  if (!req.body.id) return res.status(400).json(`id must be sent!`);
+  const updatedBeer = req.body;
+
+  fs.readFile(`${__dirname}/data/beers.json`, 'utf8', (err, dataString) => {
+    if (err) {
+      console.log('error at reading file');
+      return res.status(500).json('error at reading file');
+    }
+
+    const data = JSON.parse(dataString);
+    const beerToUpdate = data.find(beerData => beerData.id === updatedBeer.id);
+
+    if (!beerToUpdate) {
+      return res.status(410).json(`could not find beer with id: ${updatedBeer.id}`);
+    }
+
+    const beers = data.map(beerData => {
+      if (beerData.id === updatedBeer.id) return { ...beerData, ...updatedBeer };
+      return beerData;
+    });
+
+    fs.writeFile(`${__dirname}/data/beers.json`, JSON.stringify(beers, null, 2), (err) => {
+      if (err) {
+        console.log('error at writing file');
+        return res.status(500).json('error at writing file');
+      }
+
+      return res.json(`updated beer with id: ${updatedBeer.id}`);
     })
   })
 })
